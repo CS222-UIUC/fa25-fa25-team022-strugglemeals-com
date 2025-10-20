@@ -1,59 +1,95 @@
-
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-
 import { AuthProvider, useAuth } from "./AuthContext.jsx";
 import Signup from "./components/Signup.jsx";
 import Login from "./components/Login.jsx";
 
 function AppContent() {
   const { user, logout } = useAuth();
-  const [count, setCount] = useState(0);
+  const [query, setQuery] = useState("");
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSearch = async () => {
+    if (!query.trim()) return;
+    setLoading(true);
+    setError("");
+    setRecipes([]);
+
+    try {
+      const res = await fetch(
+        `http://localhost:5050/api/recipe?q=${encodeURIComponent(query)}`
+      );
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to fetch recipes");
+      setRecipes(data);
+    } catch (err) {
+      console.error(err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <h1 className="title">Recipe Finder</h1>
+
+      {/* Search bar */}
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-bar"
+          placeholder="Search for a recipe..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <button onClick={handleSearch} className="search-button">
+          Search
+        </button>
       </div>
 
-      <h1>Vite + React</h1>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <div className="card">
+      {/* Recipes grid */}
+      <div className="recipes-grid">
+        {recipes.map((r) => (
+          <div key={r.id} className="recipe-card">
+            <img src={r.image} alt={r.title} className="recipe-image" />
+            <div className="recipe-info">
+              <h3>{r.title}</h3>
+              <p className="recipe-summary">{r.summary}</p>
+              <a
+                href={r.url}
+                target="_blank"
+                rel="noreferrer"
+                className="recipe-link"
+              >
+                View full recipe →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="auth-section">
         {user ? (
           <>
-            <h2>Welcome, {user.email}</h2>
+            <h3>Welcome, {user.email}</h3>
             <button onClick={logout} className="logout-btn">
               Logout
             </button>
           </>
         ) : (
           <>
-            <button onClick={() => setCount((count) => count + 1)}>
-              count is {count}
-            </button>
-            <p>
-              Edit <code>src/App.jsx</code> and save to test HMR
-            </p>
-
-            <div className="auth-section">
-              <h3>Sign up or Log in</h3>
-              <Signup />
-              <Login />
-            </div>
+            <h3>Sign up or Log in</h3>
+            <Signup />
+            <Login />
           </>
         )}
       </div>
-
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
