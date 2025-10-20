@@ -1,84 +1,165 @@
-
-
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-.card {
-  padding: 2em;
-  border: 1px solid #eee;
-  border-radius: 1em;
-  background: #fafafa;
-  margin-top: 1rem;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-/* 🔹 Added styles for auth section */
-.auth-section {
-  margin-top: 2rem;
-  padding: 1.5rem;
-  background: #ffffff;
-  border-radius: 1rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-.auth-section form {
+body {
+  background-color: #ffb997; /* warm peach background */
+  color: #0b032d;
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
 }
 
-.auth-section input {
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 0.4rem;
+/* Title */
+.title {
+  margin-top: 60px;
+  font-size: 2.8rem;
+  color: #621940;
+  font-weight: 700;
 }
 
-.auth-section button {
-  background-color: #2563eb;
-  color: white;
-  padding: 0.6rem;
-  border: none;
-  border-radius: 0.4rem;
+/* Search Bar */
+.search-container {
+  margin: 25px auto 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.search-bar {
+  width: 340px;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #843b62;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #0b032d;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.search-bar:focus {
+  outline: none;
+  border-color: #f67e7d;
+  box-shadow: 0 0 5px rgba(246, 126, 125, 0.5);
+}
+
+.search-button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: 1px solid #843b62;
+  border-radius: 8px;
+  background-color: #f67e7d;
+  color: #fff;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.auth-section button:hover {
-  background-color: #1d4ed8;
+.search-button:hover {
+  background-color: #843b62;
+  transform: scale(1.03);
 }
 
-.logout-btn {
-  background-color: #ef4444;
-  color: white;
-  padding: 0.6rem 1rem;
-  border-radius: 0.4rem;
-  border: none;
-  cursor: pointer;
-  margin-top: 1rem;
+/* Recipes Layout */
+.recipes-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
 }
 
-.logout-btn:hover {
-  background-color: #dc2626;
-} 
+/* Recipe Card */
+.recipe-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(11, 3, 45, 0.2);
+  width: 100%;
+  max-width: 600px;
+  padding: 18px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin: 0 auto;
+}
+
+.recipe-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 14px rgba(98, 25, 64, 0.3);
+}
+
+.recipe-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-right: 18px;
+}
+
+.recipe-info {
+  text-align: left;
+  flex: 1;
+}
+
+.recipe-info h3 {
+  margin: 0 0 8px;
+  font-size: 1.25rem;
+  color: #621940;
+  font-weight: 600;
+}
+
+.recipe-summary {
+  font-size: 0.95rem;
+  color: #0b032d;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.recipe-link {
+  font-size: 0.9rem;
+  color: #f67e7d;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.recipe-link:hover {
+  text-decoration: underline;
+}
+
+/* Auth Section */
+.auth-section {
+  background-color: #843b62;
+  color: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 40px auto 60px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive for mobile */
+@media (max-width: 600px) {
+  .recipe-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .recipe-image {
+    margin: 0 0 12px 0;
+    width: 90%;
+    height: auto;
+  }
+
+  .recipe-info {
+    text-align: center;
+  }
+}
