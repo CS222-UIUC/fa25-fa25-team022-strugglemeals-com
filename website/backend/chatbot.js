@@ -4,7 +4,7 @@ dotenv.config();
 
 class ChatbotClient {
   constructor({
-    model = "mistralai/Mistral-7B-Instruct-v0.2:featherless-ai",
+    model = "meta-llama/Meta-Llama-3-8B-Instruct",
     token = process.env.HUGGING_FACE_API_KEY,
   } = {}) {
     if (!token) throw new Error("Missing HUGGING_FACE_API_KEY in .env");
@@ -24,15 +24,29 @@ class ChatbotClient {
         : "(none yet)";
 
     const checkPrompt = `
-You are ChefBot, a helpful cooking assistant.
-Compare the following two messages:
+You are ChefBot, a cooking assistant.
+
+Your job is to decide whether the user's reply is relevant to the cooking conversation.
+
+A reply is RELEVANT ("yes") if it does ANY of the following:
+- Answers ChefBot’s question, even vaguely
+- Says they don't care ("any type", "doesn't matter", "whatever works") or gives a general preference
+- Shows acknowledgment ("ok", "sure", "yes", "sounds good")
+- Asks to start the process over ("can we start over")
+- Continues the cooking conversation in any way
+
+A reply is OFF TOPIC ("no") only if:
+- The user changes to a completely unrelated topic (school, sports, drama, random facts, etc.)
+
+IMPORTANT:
+Do NOT treat vague or non-specific answers as off topic.
+Do NOT require the user to give a specific cooking detail.
+
+Your entire output must be EXACTLY one word:
+"yes" or "no"
 
 ChefBot said: "${lastReply}"
 User replied: "${userMessage}"
-
-Determine if the user's message is directly relevant to what ChefBot just said or to continuing the cooking process.
-If it is relevant, respond ONLY with "yes".
-If it is off topic, respond ONLY with "no".
 `;
 
     const classification = await this.client.chat.completions.create({
