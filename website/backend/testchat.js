@@ -27,7 +27,7 @@ async function getRandomRecipe() {
 }
 
 async function start() {
-  console.log("👩Fetching a random recipe from Spoonacular...");
+  console.log("Fetching a random recipe from Spoonacular...");
   const recipe = await getRandomRecipe();
 
   console.log(`\nToday's recipe: ${recipe.title}\n`);
@@ -50,8 +50,8 @@ Rules for your replies:
 - Only reveal one step or action at a time.
 - Wait for the user's input before continuing.
 - Start the conversation by saying exactly:
-"Ready to make ${recipe.title}? Let’s get started!"
-and then wait for the user to respond. You MUST keep responses under 2 sentences.
+"Ready to make ${recipe.title}? Let’s get started!" and nothing else.
+Then, wait for the user to respond. You MUST keep responses under 2 sentences.
 `;
 
 
