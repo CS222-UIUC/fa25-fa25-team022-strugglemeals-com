@@ -3,6 +3,8 @@ import "./App.css";
 import { AuthProvider, useAuth } from "./AuthContext.jsx";
 import Signup from "./components/Signup.jsx";
 import Login from "./components/Login.jsx";
+import ChatButton from "./components/ChatButton.jsx";
+import ChatWindow from "./components/ChatWindow.jsx";
 
 function ResetPassword() {
   const { resetPassword } = useAuth();
@@ -48,6 +50,25 @@ function AppContent() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Chat state
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatRecipe, setChatRecipe] = useState(null);
+
+  // When user clicks "ChefBot" button
+  function handleChatbotButton(recipeObj) {
+    // Force ChatWindow to fully reset by unmounting it
+    setChatOpen(false);
+    setChatRecipe(null);
+
+    // Re-open with new recipe
+    setTimeout(() => {
+      setChatRecipe(recipeObj);
+      setChatOpen(true);
+    }, 0);
+  }
+
+
+  // Search recipes
   const handleSearch = async () => {
     if (!query.trim()) return;
     setLoading(true);
@@ -95,7 +116,13 @@ function AppContent() {
         {recipes.map((r) => (
           <div key={r.id} className="recipe-card">
             <img src={r.image} alt={r.title} className="recipe-image" />
+
             <div className="recipe-info">
+              <ChatButton
+                type="button"
+                className="chatbot-button"
+                onClickHandler={() => handleChatbotButton(r)}   // full recipe object
+              />
               <h3>{r.title}</h3>
               <p className="recipe-summary">{r.summary}</p>
               <a
@@ -111,6 +138,14 @@ function AppContent() {
         ))}
       </div>
 
+      {/* Chat Window — floating on top */}
+      <ChatWindow
+        open={chatOpen}
+        recipe={chatRecipe}            // FIXED: send full recipe, not recipeTitle
+        onClose={() => setChatOpen(false)}
+      />
+
+      {/* Authentication section */}
       <div className="auth-section">
         {user ? (
           <>
@@ -124,7 +159,7 @@ function AppContent() {
             <h3>Sign up or Log in</h3>
             <Signup />
             <Login />
-            <ResetPassword /> 
+            <ResetPassword />
           </>
         )}
       </div>
