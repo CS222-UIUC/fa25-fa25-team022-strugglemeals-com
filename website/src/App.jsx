@@ -5,6 +5,12 @@ import Signup from "./components/Signup.jsx";
 import Login from "./components/Login.jsx";
 import ChatButton from "./components/ChatButton.jsx";
 import ChatWindow from "./components/ChatWindow.jsx";
+import NavBar from "./components/Navbar.jsx"
+//import Community from "./components/community.js"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+
+
 
 function ResetPassword() {
   const { resetPassword } = useAuth();
@@ -167,10 +173,50 @@ function AppContent() {
   );
 }
 
+// export default function App() {
+//   return (
+//     <AuthProvider>
+//       <AppContent />
+//     </AuthProvider>
+//   );
+// }
 export default function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<AppContent />} />
+          {/* <Route path="/" element={<HomePage />} />
+          <Route path="/recipes" element={<Recipes />} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/about" element={<AboutUs />} /> */}
+        </Routes>
+      </Router>
     </AuthProvider>
   );
 }
+
+// function AppRouter() {
+//   return (
+//     <Router>
+//       <div style={{
+//         fontFamily: 'Arial',
+//         backgroundColor: '#ffffffff',
+//         backgroundRepeat: 'repeat',
+//         backgroundSize: 'auto',
+//         minHeight: '100vh',
+//       }}>
+//         {/* Updated to use Navbar */}
+//         <NavBar />
+
+//         <ScrollToTop />
+//         <Routes>
+          
+//         </Routes>
+//       </div>
+//     </Router>
+//   );
+//   }
+
