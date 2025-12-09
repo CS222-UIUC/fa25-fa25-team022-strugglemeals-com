@@ -1,0 +1,1 @@
+<RecipeReviews recipeId={recipe.id} />
