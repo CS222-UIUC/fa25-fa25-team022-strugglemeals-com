@@ -39,52 +39,34 @@ function HomePage() {
   };
 
   const handleSearch = async () => {
-  if (!searchQuery.trim()) return;
+    if (!searchQuery.trim()) return;
+    setLoading(true);
+    setError("");
+    setRecipes([]);
 
-  setLoading(true);
-  setError("");   // clear previous errors
-  setRecipes([]);
-
-  try {
-    let spoonacularData = [];
-
-    //have a try in case our spoonacular api expires or something
     try {
       const res = await fetch(
         `http://localhost:5050/api/recipe?q=${encodeURIComponent(searchQuery)}`
       );
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to fetch recipes");
+      const q = query(
+      collection(db, "recipes"),
+      where("title", ">=", searchQuery),
+      where("title", "<=", searchQuery + "\uf8ff")
+    );
+    const querySnapshot = await getDocs(q);
+    const firestoreData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-      if (res.ok) {
-        const data = await res.json();
-        spoonacularData = data.map(r => ({ ...r, source: "Spoonacular" }));
-      }
+      setRecipes([...data, ...firestoreData]);
     } catch (err) {
-      console.warn("Spoonacular fetch failed:", err.message);
+      console.error(err);
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    //want search to be case insensitive
-    const querySnapshot = await getDocs(collection(db, "recipes"));
-    const firestoreData = querySnapshot.docs
-      .map(doc => ({ id: doc.id, ...doc.data(), source: "Firestore" }))
-      .filter(r =>
-        r.title?.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-
-    // --- Combine results ---
-    const combinedResults = [...spoonacularData, ...firestoreData];
-    setRecipes(combinedResults);
-
-    if (combinedResults.length === 0) {
-      setError("No recipes found for that search.");
-    }
-
-  } catch (err) {
-    console.error("Search error:", err);
-    setError("Failed to fetch recipes.");
-  } finally {
-    setLoading(false);
-  }
-};
   return (
     <>
       <h1 className="title">Recipe Finder</h1>
