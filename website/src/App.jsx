@@ -39,34 +39,51 @@ function HomePage() {
   };
 
   const handleSearch = async () => {
-    if (!searchQuery.trim()) return;
-    setLoading(true);
-    setError("");
-    setRecipes([]);
+  if (!searchQuery.trim()) return;
 
+  setLoading(true);
+  setError("");   // clear previous errors
+  setRecipes([]);
+
+  try {
+    let spoonacularData = [];
+
+    //have a try in case our spoonacular api expires or something
     try {
       const res = await fetch(
         `http://localhost:5050/api/recipe?q=${encodeURIComponent(searchQuery)}`
       );
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to fetch recipes");
-      const q = query(
-      collection(db, "recipes"),
-      where("title", ">=", searchQuery),
-      where("title", "<=", searchQuery + "\uf8ff")
-    );
-    const querySnapshot = await getDocs(q);
-    const firestoreData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-      setRecipes([...data, ...firestoreData]);
+      if (res.ok) {
+        const data = await res.json();
+        spoonacularData = data.map(r => ({ ...r, source: "Spoonacular" }));
+      }
     } catch (err) {
-      console.error(err);
-      setError(err.message);
-    } finally {
-      setLoading(false);
+      console.warn("Spoonacular fetch failed:", err.message);
     }
-  };
 
+    //want search to be case insensitive
+    const querySnapshot = await getDocs(collection(db, "recipes"));
+    const firestoreData = querySnapshot.docs
+      .map(doc => ({ id: doc.id, ...doc.data(), source: "Firestore" }))
+      .filter(r =>
+        r.title?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+    const combinedResults = [...spoonacularData, ...firestoreData];
+    setRecipes(combinedResults);
+
+    if (combinedResults.length === 0) {
+      setError("No recipes found for that search.");
+    }
+
+  } catch (err) {
+    console.error("Search error:", err);
+    setError("Failed to fetch recipes.");
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <>
       <h1 className="title">Recipe Finder</h1>
