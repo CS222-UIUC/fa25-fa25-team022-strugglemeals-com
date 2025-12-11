@@ -23,7 +23,7 @@ const Navbar = () => {
         width: '100%',
         zIndex: 1000,
         display: 'flex',
-        justifyContent: 'center',
+        justifyContent: '',
         gap: '40px',
         padding: '20px',
         backgroundColor: '#ffffffff',
