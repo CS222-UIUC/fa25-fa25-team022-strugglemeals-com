@@ -14,6 +14,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import "./App.css";
+import AboutUs from "./components/about";
+
+//have a designated homepage to start and then we can go to the other pages from there
 
 //have a designated homepage to start and then we can go to the other pages from there
 
@@ -39,11 +42,10 @@ function HomePage() {
   };
 
   const handleSearch = async () => {
-  if (!searchQuery.trim()) return;
-
-  setLoading(true);
-  setError("");   // clear previous errors
-  setRecipes([]);
+    if (!searchQuery.trim()) return;
+    setLoading(true);
+    setError("");
+    setRecipes([]);
 
   try {
     let spoonacularData = [];
@@ -295,6 +297,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/upload" element={<UploadRecipe />} />
+          <Route path="/about" element={<AboutUs />} />
           {/* <Route path="/" element={<AppContent />} />
           {<Route path="/" element={<HomePage />} />
           <Route path="/recipes" element={<Recipes />} />
