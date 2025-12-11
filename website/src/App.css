@@ -1,5 +1,5 @@
 body {
-  background-color: #ffb997; /* warm peach background */
+  background-color: #bde5ee; 
   color: #0b032d;
   font-family: "Inter", sans-serif;
   margin: 0;
@@ -9,6 +9,7 @@ body {
   align-items: center;
   text-align: center;
   min-height: 100vh;
+  margin-top: 80px;
 }
 
 /* Title */
@@ -42,7 +43,7 @@ body {
 
 .search-bar:focus {
   outline: none;
-  border-color: #f67e7d;
+  border-color: #bde5ee;
   box-shadow: 0 0 5px rgba(246, 126, 125, 0.5);
 }
 
@@ -51,7 +52,7 @@ body {
   font-size: 1rem;
   border: 1px solid #843b62;
   border-radius: 8px;
-  background-color: #f67e7d;
+  background-color: #bde5ee;
   color: #fff;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -88,6 +89,8 @@ body {
   padding: 18px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   margin: 0 auto;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(11, 3, 45, 0.15);
 }
 
 .recipe-card:hover {
@@ -124,19 +127,20 @@ body {
 
 .recipe-link {
   font-size: 0.9rem;
-  color: #f67e7d;
+  color: #bde5ee;
   text-decoration: none;
   font-weight: 500;
 }
 
 .recipe-link:hover {
   text-decoration: underline;
+  color: #621940;
 }
 
 /* Auth Section */
 .auth-section {
-  background-color: #843b62;
-  color: #fff;
+  background-color: #ffffff;
+  color: #000000;
   border-radius: 16px;
   padding: 20px;
   margin: 40px auto 60px;
