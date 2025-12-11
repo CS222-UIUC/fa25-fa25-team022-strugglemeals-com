@@ -1,8 +1,8 @@
-import OpenAI from "openai";
+import { HfInference } from "@huggingface/inference";
 import dotenv from "dotenv";
 dotenv.config();
 
-/** Return the last assistant reply, ignoring system/user messages */
+/** Return the last assistant reply */
 function getLastAssistantReply(history) {
   for (let i = history.length - 1; i >= 0; i--) {
     if (history[i].role === "assistant") return history[i].content;
@@ -18,17 +18,14 @@ class ChatbotClient {
     if (!token) throw new Error("Missing HUGGING_FACE_API_KEY in .env");
 
     this.model = model;
-    this.client = new OpenAI({
-      baseURL: "https://router.huggingface.co/v1",
-      apiKey: token,
-    });
+
+    this.client = new HfInference(token);
 
     this.history = [];
     this.injectedRecipe = false;
     this.currentRecipeTitle = null;
   }
 
-  /** Reset conversation when a new recipe is selected */
   reset() {
     this.history = [];
     this.injectedRecipe = false;
@@ -60,34 +57,31 @@ ChefBot said: "${lastReply}"
 User replied: "${userMessage}"
 `;
 
-    const classification = await this.client.chat.completions.create({
+    const resp = await this.client.chatCompletion({
       model: this.model,
       messages: [{ role: "user", content: checkPrompt }],
-      max_tokens: 2,
+      max_tokens: 5,
       temperature: 0,
     });
 
-    const answer = classification.choices[0].message.content.trim().toLowerCase();
-    return answer.includes("no"); // true if off topic
+    const answer = resp.choices[0].message.content.trim().toLowerCase();
+    return answer.includes("no");
   }
 
   /** Main response handler */
   async getResponse(userMessage, recipe = null) {
-    // NEW RECIPE? Reset state.
     if (recipe && this.currentRecipeTitle !== recipe.title) {
       this.reset();
       this.currentRecipeTitle = recipe.title;
     }
 
-    // Inject system prompt ONCE per recipe
     if (recipe && !this.injectedRecipe) {
       this.history.push({
         role: "system",
         content: `
 You are ChefBot, a concise and friendly cooking assistant.
-Use the user's selected recipe to guide the cooking process conversationally.
 
-Here is the recipe context that you will need to know for this conversation.
+Here is the recipe context.
 Title: ${recipe.title}
 
 Ingredients:
@@ -99,14 +93,13 @@ ${recipe.instructions}
 RULES:
 - Do NOT recite the full recipe unless asked.
 - Keep responses under 2 sentences.
-- Reveal cooking steps gradually.
+- Reveal steps gradually.
         `.trim(),
       });
 
       this.injectedRecipe = true;
     }
 
-    // Off-topic check
     if (recipe) {
       const offTopic = await this.classifyOffTopic(userMessage);
       if (offTopic) {
@@ -115,11 +108,9 @@ RULES:
       }
     }
 
-    // Add user message
     this.history.push({ role: "user", content: userMessage });
 
-    // Call the LLM
-    const completion = await this.client.chat.completions.create({
+    const completion = await this.client.chatCompletion({
       model: this.model,
       messages: this.history,
       temperature: 0.6,
@@ -127,7 +118,6 @@ RULES:
 
     const reply = completion.choices[0].message.content.trim();
 
-    // Store assistant reply
     this.history.push({ role: "assistant", content: reply });
 
     return reply;
