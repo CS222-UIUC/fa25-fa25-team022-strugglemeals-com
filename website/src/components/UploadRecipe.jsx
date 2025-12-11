@@ -3,6 +3,8 @@ import { useAuth } from "../AuthContext";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import "./UploadRecipe.css";
+
 
 export default function UploadRecipe() {
   const { user } = useAuth();
@@ -30,7 +32,7 @@ export default function UploadRecipe() {
         date: serverTimestamp(),
       });
       alert("Recipe uploaded!");
-      navigate("/profile"); // go back to profile after upload
+      navigate("/profile");
     } catch (err) {
       console.error("Upload failed:", err);
       alert("Failed to upload recipe.");
@@ -40,30 +42,40 @@ export default function UploadRecipe() {
   };
 
   return (
-    <div style={{ paddingTop: "100px" }}>
-      <h2>Upload Recipe</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="upload-container">
+      <h2 className="upload-title">Upload a New Recipe</h2>
+
+      <form className="upload-form" onSubmit={handleSubmit}>
+        <label className="upload-label">Recipe Title</label>
         <input
+          className="upload-input"
           type="text"
-          placeholder="Title"
+          placeholder="e.g., Creamy Garlic Pasta"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
         />
+
+        <label className="upload-label">Summary</label>
         <textarea
-          placeholder="Summary"
+          className="upload-textarea"
+          placeholder="Write a short description..."
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
           required
         />
+
+        <label className="upload-label">Image URL</label>
         <input
+          className="upload-input"
           type="text"
-          placeholder="Image URL"
+          placeholder="https://example.com/photo.jpg"
           value={image}
           onChange={(e) => setImage(e.target.value)}
           required
         />
-        <button type="submit" disabled={loading}>
+
+        <button className="upload-button" type="submit" disabled={loading}>
           {loading ? "Uploading..." : "Upload Recipe"}
         </button>
       </form>

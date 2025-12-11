@@ -1,0 +1,19 @@
+.community-container {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.community-message {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #333;
+  background: #f9f9f9;
+  border-left: 4px solid #ff7d39;
+  padding: 20px 28px;
+  border-radius: 8px;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}

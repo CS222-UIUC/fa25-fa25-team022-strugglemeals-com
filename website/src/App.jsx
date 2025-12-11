@@ -7,7 +7,6 @@ import ResetPassword from "./components/ResetPassword.jsx";
 import ChatButton from "./components/ChatButton.jsx";
 import ChatWindow from "./components/ChatWindow.jsx";
 import NavBar from "./components/Navbar.jsx"
-//import Community from "./components/community.js"
 import UploadRecipe from "./components/UploadRecipe.jsx";
 import UserProfile from "./components/UserProfile.jsx";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -15,6 +14,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import "./App.css";
 import AboutUs from "./components/about";
+import Community from "./components/community.jsx";
 
 //have a designated homepage to start and then we can go to the other pages from there
 
@@ -298,6 +298,7 @@ export default function App() {
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/upload" element={<UploadRecipe />} />
           <Route path="/about" element={<AboutUs />} />
+          <Route path="/community" element={<Community />} />
           {/* <Route path="/" element={<AppContent />} />
           {<Route path="/" element={<HomePage />} />
           <Route path="/recipes" element={<Recipes />} />
