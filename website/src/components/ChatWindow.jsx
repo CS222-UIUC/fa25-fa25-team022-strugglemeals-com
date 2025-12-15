@@ -25,7 +25,7 @@ export default function ChatWindow({ open, onClose, recipe }) {
     const userMsg = input;
     setInput("");
 
-    // Add user message
+    // user message
     setMessages((prev) => [...prev, { sender: "user", text: userMsg }]);
     setLoading(true);
 
@@ -35,7 +35,7 @@ export default function ChatWindow({ open, onClose, recipe }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: userMsg,
-          recipe: firstMessage ? recipe : null   // <-- only send recipe ONCE
+          recipe: firstMessage ? recipe : null   
         }),
       });
 
@@ -43,7 +43,7 @@ export default function ChatWindow({ open, onClose, recipe }) {
       const reply = data.reply || "Error getting reply";
 
       setMessages((prev) => [...prev, { sender: "bot", text: reply }]);
-      setFirstMessage(false);   // After first send, stop sending recipe
+      setFirstMessage(false);   // after first send stop recipe
     } catch (err) {
       setMessages((prev) => [
         ...prev,

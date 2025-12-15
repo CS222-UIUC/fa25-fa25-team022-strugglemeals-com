@@ -24,8 +24,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link className={`nav-link ${isActive("/login") ? "active" : ""}`} to="/login">Login</Link>
-            <Link className={`nav-link ${isActive("/signup") ? "active" : ""}`} to="/signup">Sign Up</Link>
+   
           </>
         )}
       </div>

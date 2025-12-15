@@ -12,7 +12,7 @@ body {
   margin-top: 80px;
 }
 
-/* Title */
+
 .title {
   margin-top: 60px;
   font-size: 2.8rem;
@@ -20,7 +20,7 @@ body {
   font-weight: 700;
 }
 
-/* Search Bar */
+
 .search-container {
   margin: 25px auto 50px;
   display: flex;
@@ -63,7 +63,7 @@ body {
   transform: scale(1.03);
 }
 
-/* Recipes Layout */
+
 .recipes-grid {
   display: flex;
   flex-direction: column;
@@ -137,7 +137,7 @@ body {
   color: #621940;
 }
 
-/* Auth Section */
+
 .auth-section {
   background-color: #ffffff;
   color: #000000;
@@ -149,7 +149,7 @@ body {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Responsive for mobile */
+
 @media (max-width: 600px) {
   .recipe-card {
     flex-direction: column;

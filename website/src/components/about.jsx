@@ -5,7 +5,7 @@ const AboutUs = () => {
   return (
     <div className="about-container">
 
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section className="hero-section">
         <h1>About Us</h1>
         <p>
@@ -15,7 +15,7 @@ const AboutUs = () => {
         </p>
       </section>
 
-      {/* TEAM SECTION */}
+      {/* TEAM */}
       <section className="team-section">
         <h2>Meet the Team</h2>
         <div className="team-grid">
@@ -47,7 +47,7 @@ const AboutUs = () => {
         </div>
       </section>
 
-      {/* MISSION SECTION */}
+      {/* MISSION*/}
       <section className="mission-section">
         <h2>Our Mission</h2>
         <p>
@@ -60,7 +60,7 @@ const AboutUs = () => {
         </p>
       </section>
 
-      {/* CONTACT SECTION */}
+      {/* CONTACT */}
       <section className="contact-section">
         <h2>Want to reach us?</h2>
         <p>Email: <strong>team@strugglemeals101.com</strong></p>
