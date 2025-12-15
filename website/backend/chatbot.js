@@ -68,7 +68,7 @@ User replied: "${userMessage}"
     return answer.includes("no");
   }
 
-  /** Main response handler */
+ 
   async getResponse(userMessage, recipe = null) {
     if (recipe && this.currentRecipeTitle !== recipe.title) {
       this.reset();

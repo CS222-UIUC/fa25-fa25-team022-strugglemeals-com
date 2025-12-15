@@ -15,6 +15,7 @@ export default function Login() {
       alert(error.message);
     }
   };
+  
 
   return (
     <form onSubmit={handleLogin} className="flex flex-col gap-3 w-80 mx-auto">
@@ -38,4 +39,5 @@ export default function Login() {
       </button>
     </form>
   );
+  
 }

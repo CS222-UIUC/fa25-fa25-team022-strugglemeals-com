@@ -43,7 +43,7 @@
   background: #f8faff;
 }
 
-/* Bold placeholder text */
+
 .upload-input::placeholder,
 .upload-textarea::placeholder {
   font-weight: 600;
