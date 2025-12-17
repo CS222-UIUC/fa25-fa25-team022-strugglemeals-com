@@ -4,7 +4,7 @@
 
 StruggleMeals.com is a web application that helps college students and beginner cooks make **simple, affordable meals** using ingredients they already have at home. The platform combines ingredient-based search, budget and dietary filters, and an optional AI-powered cooking assistant to reduce the intimidation around cooking.
 
-## 📌 Project Summary
+## Project Summary
 College students often struggle to cook due to limited time, money, and experience. Many rely on repetitive or unhealthy food options because cooking feels overwhelming or inaccessible.
 
 **StruggleMeals.com** addresses this problem by providing:
@@ -13,9 +13,7 @@ College students often struggle to cook due to limited time, money, and experien
 
 Our goal is to make cooking **realistic, approachable, and affordable** for everyone.
 
----
-
-## 🧩 System Architecture Diagram
+# System Architecture Diagram
 
 ```text
 [ React + TypeScript Frontend ]
@@ -29,7 +27,7 @@ Our goal is to make cooking **realistic, approachable, and affordable** for ever
 [ Spoonacular API ]   [ Llama-3-8b (Hugging Face) ]
      |
      v
-[ Firebase Auth + NoSQL Database ]
+[ Firebase Auth ]
 ```
 - The frontend handles user interaction and displays results.
 - The backend coordinates API calls and enforces authentication.
@@ -37,7 +35,7 @@ Our goal is to make cooking **realistic, approachable, and affordable** for ever
 - Llama-3-8b powers the AI cooking assistant.
 - Firebase manages authentication and user data.
 
-## ⚙️ Installation & Reproducibility
+## Installation & Reproducibility
 
 ### Prerequisites
 
@@ -47,18 +45,14 @@ Our goal is to make cooking **realistic, approachable, and affordable** for ever
 * HuggingFace API Key
 * Spoonacular API Key
 
----
-
-### 1️⃣ Clone the Repository
+### 1️. Clone the Repository
 
 ```bash
-git clone https://github.com/your-org/strugglemeals.git
+git clone [https://github.com/your-org/strugglemeals.git](https://github.com/CS222-UIUC/fa25-fa25-team022-strugglemeals-com.git)
 cd strugglemeals
 ```
 
----
-
-### 2️⃣ Frontend Setup
+### 2️. Frontend Setup
 
 ```bash
 cd frontend
@@ -71,9 +65,8 @@ Frontend runs at:
 ```
 http://localhost:5173
 ```
----
 
-### 3️⃣ Backend Setup
+### 3️. Backend Setup
 
 Create a `.env` file:
 
@@ -95,9 +88,8 @@ Backend runs at:
 ```
 http://localhost:5000
 ```
----
 
-## 👥 Team Members & Roles
+## Team Members & Roles
 
 **CS 222 – Group 22**
 
@@ -114,22 +106,8 @@ http://localhost:5000
 * Weekly check-ins and collaborative debugging
 * Shared responsibility for testing and documentation
   
----
-
-## 🌟 What Makes StruggleMeals Unique
-
-* 🤖 **AI Cooking Assistant** for step-by-step guidance
-* 🌍 **Community & Cultural Recipe Submissions**
-
----
-
-## 🤖 AI Disclosure
-
-ChatGPT was used to assist with:
-
-* Designing the technical flowchart
-* Creating the weekly development plan
-
----
+## What Makes StruggleMeals Unique
+* **AI Cooking Assistant** for step-by-step guidance
+* **Community & Cultural Recipe Submissions**
 
 **Happy Cooking! 🍜**
