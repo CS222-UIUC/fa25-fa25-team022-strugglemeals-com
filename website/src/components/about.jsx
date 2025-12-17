@@ -9,9 +9,9 @@ const AboutUs = () => {
       <section className="hero-section">
         <h1>About Us</h1>
         <p>
-          Welcome to <strong>StruggleMeals101</strong> — where college students,
-          food lovers, and budget–savvy cooks come together to discover affordable,
-          easy, and delicious recipes.
+          Welcome to <strong>StruggleMeals101!</strong> Where college students and
+          food lovers,can discover affordable,
+          easy, and delicious recipes. This was created by students, for students!
         </p>
       </section>
 
@@ -52,18 +52,16 @@ const AboutUs = () => {
         <h2>Our Mission</h2>
         <p>
           We founded StruggleMeals101 with a simple idea:  
-          **no student should have to eat boring food** just because they’re on a budget.
+          "no student should have to eat boring food just because they’re on a budget."
         </p>
         <p>
           Our platform brings affordable ingredients, step–by–step recipes,
-          AI–powered recommendations, and a supportive food community — all in one place.
+          AI–powered recommendations, and a supportive food community: all in one place!
         </p>
       </section>
 
       {/* CONTACT */}
       <section className="contact-section">
-        <h2>Want to reach us?</h2>
-        <p>Email: <strong>team@strugglemeals101.com</strong></p>
       </section>
 
     </div>
