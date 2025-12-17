@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .about-container {
   width: 100%;
   padding: 40px 80px;
